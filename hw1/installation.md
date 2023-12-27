@@ -52,3 +52,7 @@ These can be resolved with:
 ```
 export MUJOCO_GL=egl
 ```
+
+
+sudo apt install gcc
+sudo apt-get install g++
