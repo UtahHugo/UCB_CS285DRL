@@ -33,8 +33,8 @@ def sample_trajectory(env, policy, max_path_length, render=False):
             image_obs.append(cv2.resize(img, dsize=(250, 250), interpolation=cv2.INTER_CUBIC))
     
         # TODO use the most recent ob to decide what to do
-        ac = np.array(policy(torch.tensor(ob[0], dtype=torch.float32)).sample()) # HINT: this is a numpy array
-        ac = ac[0]
+        ac = ptu.to_numpy(policy(ptu.from_numpy(ob[0])).sample()) # HINT: this is a numpy array
+        # ac = ac[0]
 
         # TODO: take that action and get reward and next ob
         next_ob, rew, done, _ = env.step(ac)
@@ -73,6 +73,7 @@ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, r
 
         #collect rollout
         path = sample_trajectory(env, policy, max_path_length, render)
+        print(path)
         paths.append(path)
 
         #count steps
